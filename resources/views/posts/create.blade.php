@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container">
-    <form action="">
+    <form action="/p" enctype="multipart/form-data" method="post">
+        @csrf
+
+
         <div class="row">
             <div class="cool-8 offset-4">
 
@@ -14,33 +17,35 @@
 
                         <input id="caption"
                         type="text"
-                        class="form-control @error('caption') is-invalid @enderror"
-                        caption="caption"
+                        class="form-control {{ $errors->has('caption')?' is-invalid' : ''}}"
+                        name="caption"
                         value="{{ old('caption') }}"
                         autocomplete="caption" autofocus>
-                        @error('caption')
+
+                        @if ($errors->has('caption'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                            <strong>{{ $errors->first('caption') }}</strong>
                         </span>
-                        @enderror
+                        @endif
                     </div>
                     <div class="row">
                         <label for="image" class="col-md-6 col-form-label">Post Image</label>
 
                         <input type="file" class="form-control-file" id="image" name="image">
 
-                        @error('image')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                        @if ($errors->has('image'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('image') }}</strong>
+                            </span>
+                        <strong>{{ $message }}</strong>
+                        @endif
                     </div>
 
                     <div class="row pt-4">
                         <button class="btn btn-primary">Add New Post</button>
                     </div>
 
-
+                    </div>
                 </div>
             </div>
         </form>
