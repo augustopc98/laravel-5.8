@@ -17,7 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/p/{post}', 'PostsController@show');
 Route::get('/p/create', 'PostsController@create');
 Route::post('/p', 'PostsController@store');
 
-Route::get('/profile/{user}', 'ProfilesController@index')->name( 'profile.show'); /** @index se esta llamando un metodo dentro de el controlador HomeController */
+Route::get('/profile/{user}', 'ProfilesController@index')->name('profile.show'); /** @index se esta llamando un metodo dentro de el controlador HomeController */
+Route::get('/profile/{user}/edit', 'ProfilesController@edit')->name('profile.edit');
+Route::patch('/profile/{user}', 'ProfilesController@update')->name('profile.update');

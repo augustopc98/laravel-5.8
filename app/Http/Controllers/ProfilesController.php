@@ -5,15 +5,33 @@ use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
 {
-    public function index($user)
+    public function index(\App\User $user)
     {
-        $user = User::findorFail($user); /** Aca llamamos a la clase User, para guardarlo en una variable $user */
+       /** $user = User::findorFail($user); /** Aca llamamos a la clase User, para guardarlo en una variable $user */
 
-        return view('profiles.index',[
-            'user' => $user,
+       return view ('profiles.index', compact('user'));
+        /** return view('profiles.index',['user' => $user,]); */
+    }
 
-            ]);
+    public function edit(User $user)
+    {
+        $this->authorize('update', $user->profile);
 
+        return view ('profiles.edit', compact('user'));
+    }
 
+    public function update(User $user)
+    {   $this->authorize('update', $user->profile);
+
+        $data = request()->validate([
+            'title'=>'required',
+            'description'=>'required',
+            'url'=>'url',
+            'image'=>'',
+        ]);
+
+        auth()->$user->profile->update($data);
+
+        return redirect("/profile/{$user->id}");
     }
 }

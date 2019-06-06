@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->HasOne(Profile::class);
+        return $this->HasOne(Profile::class)->orderBy('created_at', 'DESC');
     }
     public function posts()
     {
