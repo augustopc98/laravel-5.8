@@ -4,14 +4,26 @@
 <div class="container">
     <div class="row">
         <div class ="col-3 p-5">
-            <img src="http://www.solaruno.com/image/catalog/imagenes/logo11.png"width="200px">
+            <img src="{{$user->profile->profileImage()}}" class="rounded-circle w-100">
         </div>
         <div class ="col-9 p-5">
             <div class="d-flex justify-content-between align-items-baseline">
-            <h1>{{ $user->username}}</h1>
-            <a href="/p/create">Add New Post</a><!-- Aca le pedimos al controlador el nombre de usuario para dejarlo como titulo-->
-            </div>
-        <a href="/profile/{{ $user->id }}/edit">Edit Profile</a>
+                <div class="d-flex align-items-center pb-3">
+                    <div class="h4">{{ $user->username }}</div>
+
+                <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
+                </div>
+
+            @can('update', $user->profile)
+                <a href="/p/create">Add New Post </a>
+            @endcan
+
+        </div>
+
+        @can('update', $user->profile)
+        <a href="/profile/{{ $user->id}}/edit">Edit Profile</a>
+        @endcan
+
         <div class="d-flex">
                 <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> Productos</div>
                 <div class="pr-5"><strong>23k</strong> Ventas</div>
