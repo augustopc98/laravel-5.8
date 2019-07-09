@@ -26,8 +26,8 @@
 
         <div class="d-flex">
                 <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> Productos</div>
-                <div class="pr-5"><strong>23k</strong> Ventas</div>
-                <div class="pr-5"><strong>21</strong> Empresas Socias</div>
+                <div class="pr-5"><strong>{{ $user->profile->followers->count() }}</strong> Seguidores</div>
+                <div class="pr-5"><strong>{{ $user->following->count() }}</strong> Empresas Socias</div>
             </div>
         <div class="pt-2 font-weight-bold">{{ $user->profile->title }}</div>
         <div>{{ $user->profile->description }}</div>
